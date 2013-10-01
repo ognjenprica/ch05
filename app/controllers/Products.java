@@ -7,7 +7,7 @@ import play.mvc.Controller;
 import play.mvc.With;
 import views.html.products.*;
 
-import java.util.Set;
+import java.util.List;
 
 @With(CatchAction.class)
 public class Products extends Controller {
@@ -19,7 +19,7 @@ public class Products extends Controller {
   }
 
   public static Result list(int page) {
-      Set<Product> products = Product.findAll();
+      List<Product> products = Product.findAll();
       return ok(list.render(products));
   }
 
