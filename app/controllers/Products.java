@@ -18,9 +18,9 @@ public class Products extends Controller {
     return redirect(routes.Products.list(1));
   }
 
-  public static Result list(Integer page) {
-    Set<Product> products = Product.findAll();
-    return ok(list.render(products));
+  public static Result list(int page) {
+      Set<Product> products = Product.findAll();
+      return ok(list.render(products));
   }
 
   public static Result newProduct() {
@@ -49,6 +49,15 @@ public class Products extends Controller {
     flash("success",
         String.format("Successfully added product %s", product));
 
+    return redirect(routes.Products.list(1));
+  }
+
+  public static Result delete(String ean) {
+    final Product product = Product.findByEan(ean);
+    if(product == null) {
+        return notFound(String.format("Product %s does not exists.", ean));
+    }
+    Product.remove(product);
     return redirect(routes.Products.list(1));
   }
 }
